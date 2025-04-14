@@ -16,29 +16,35 @@ import { parseStringify } from "../utils";
 
 // CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
+  console.log("📤 Inside createUser, received:", user);
+
   try {
-    // Create new user -> https://appwrite.io/docs/references/1.5.x/server-nodejs/users#create
     const newuser = await users.create(
       ID.unique(),
       user.email,
       user.phone,
-      undefined,
+      "test1234", // Use a test password (MUST be a string, can't be undefined)
       user.name
     );
 
-    return parseStringify(newuser);
+    console.log("✅ Appwrite user created:", newuser);
+    return newuser;
   } catch (error: any) {
-    // Check existing user
-    if (error && error?.code === 409) {
+    console.error("❌ createUser failed:", error);
+
+    if (error?.code === 409) {
+      console.log("⚠️ User already exists. Fetching user by email...");
       const existingUser = await users.list([
         Query.equal("email", [user.email]),
       ]);
-
       return existingUser.users[0];
     }
-    console.error("An error occurred while creating a new user:", error);
+
+    // 🔥 THROW the error so the route knows
+    throw new Error(error.message || "Something went wrong creating the user");
   }
 };
+
 
 // GET USER
 export const getUser = async (userId: string) => {
@@ -47,10 +53,7 @@ export const getUser = async (userId: string) => {
 
     return parseStringify(user);
   } catch (error) {
-    console.error(
-      "An error occurred while retrieving the user details:",
-      error
-    );
+    console.error("An error occurred while retrieving the user details:",error);
   }
 };
 
