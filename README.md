@@ -1,7 +1,3 @@
-Certainly! Based on the information available from the GitHub repository [aryan-prog/care-pulse](https://github.com/aryan-prog/care-pulse), here's a comprehensive `README.md` file for the **Care Pulse** project:
-
----
-
 # Care Pulse
 
 **Care Pulse** is a modern healthcare appointment management system designed to streamline the process of scheduling and managing appointments between patients and doctors. Built with a focus on user experience and administrative efficiency, it offers a robust platform for both patients and healthcare providers.
