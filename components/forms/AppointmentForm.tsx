@@ -49,7 +49,7 @@ export const AppointmentForm = ({
         : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
       note: appointment?.note || "",
-      note: appointment?.cancellationReason || "",
+      // note: appointment?.cancellationReason || "",
     },
   });
 
@@ -98,7 +98,7 @@ export const AppointmentForm = ({
             primaryPhysician: values.primaryPhysician,
             schedule: new Date(values.schedule),
             status: status as Status,
-            note: values.cancellationReason,
+            note: values.note,
           },
           type,
         };

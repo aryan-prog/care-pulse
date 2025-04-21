@@ -1,5 +1,5 @@
-import { createUser } from "@/lib/actions/patient.actions";
 import { NextResponse } from "next/server";
+import { createUser } from "@/lib/actions/patient.actions";
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +16,9 @@ export async function POST(req: Request) {
     return NextResponse.json(newUser);
   } catch (error) {
     console.error("🧨 Error in API route:", error);
-    return NextResponse.json({ error: "Internal server error", details: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error", details: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
